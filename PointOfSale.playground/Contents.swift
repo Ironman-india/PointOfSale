@@ -80,5 +80,16 @@ class CheckoutSystemTests: XCTestCase {
     }
 }
 
+
+extension CheckoutSystemTests {
+    func testDiscountedPriceOfSingleTypeOfProductInCart() {
+        var products:[Products] = [.apple, .apple]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.6,accuracy:1e-16, "Failed: Discount applied. Total price of products in cart should be \(0.6)")
+    
+        products = [.orange, .orange, .orange]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.5,accuracy:1e-16, "Failed: Discount applied. Total price of products in cart should be \(0.5)")
+    }
+}
+
 CheckoutSystemTests.defaultTestSuite.run()
 
