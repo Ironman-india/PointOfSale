@@ -6,7 +6,7 @@ import XCTest
 //MARK :- Products
 /* Enumeration Products
  *
- *  It catalogs the details of product for sale.
+ *  It catalogs the details of product.
  */
 public enum Products: String {
     case apple = "Apple"
@@ -47,21 +47,27 @@ struct CheckoutSystem {
         
         var totalPrice: Double = 0
         
-        // All the products in Catalog
-        let catalog: [Products] = [.orange,.apple] 
+        // All the type of products in Cart
+        let uniqueProductsInCart = Set(products) 
         
-        for product in catalog  {
+        for product in uniqueProductsInCart  {
+            // Total price without any discount
             var totalPriceOfProduct = products
-                .filter({$0 == product})
-                .reduce(0, {$0 + $1.price()})
+                                        .filter({$0 == product})
+                                        .reduce(0, {$0 + $1.price()})
             
+            // Quantity of given product in cart
             let productCount = products.filter { $0 == product }.count
+            
+            var discountRate: Double = 0
             switch product.discountType {
-            case .buyOneGetOneFree:
-                totalPriceOfProduct -= Double(Int(productCount/2)) * product.price()
-            case .threeForPriceOfTwo:
-                totalPriceOfProduct -= Double(Int(productCount/3)) * product.price()
+                case .buyOneGetOneFree:
+                    discountRate = Double(Int(productCount/2))
+                case .threeForPriceOfTwo:
+                    discountRate = Double(Int(productCount/3))
             }
+            
+            totalPriceOfProduct -= discountRate * product.price()
             totalPrice += totalPriceOfProduct
         }
         
@@ -70,7 +76,6 @@ struct CheckoutSystem {
 }
 
 //MARK: - TEST CASES
-
 class CheckoutSystemTests: XCTestCase {
     
     override func setUp() {
@@ -115,7 +120,7 @@ class CheckoutSystemTests: XCTestCase {
     }
 }
 
-
+// Discount Price Test cases
 extension CheckoutSystemTests {
     func testDiscountedPriceOfSingleTypeOfProductInCart() {
         var products:[Products] = [.apple, .apple]
@@ -132,7 +137,18 @@ extension CheckoutSystemTests {
         
         products = [.orange, .orange, .orange, .orange]
         XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.75,accuracy:1e-7, "Failed: Discount applied. Total price of products in cart should be \(0.75)")
-    }    
+    }
+    
+    func testDiscountedPriceOfMultipleTypesOfProductsInCart() {
+        var products: [Products] = [.orange,.orange,.orange,.orange,.apple]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 1.35, accuracy: 1e-7, "Failed: Discount applied. Total price of products in cart should be \(1.35)")
+        
+        products = [.orange,.orange,.orange,.orange,.apple,.apple]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 1.35, accuracy: 1e-7, "Failed: Discount applied. Total price of products in cart should be \(1.35)")
+        
+        products = [.orange,.orange,.orange,.apple,.apple]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 1.1, accuracy: 1e-7, "Failed: Discount applied. Total price of products in cart should be \(1.1)")
+    }
 }
 
 CheckoutSystemTests.defaultTestSuite.run()
