@@ -52,31 +52,31 @@ class CheckoutSystemTests: XCTestCase {
     
     func testTotalPriceOfEmptyCart() {
         let products: [Products] = []
-        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0, "Failed: Total price of empty cart should be zero")
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0, accuracy:1e-16, "Failed: Total price of empty cart should be zero")
     }
     
     
     func testTotalPriceOfSingleItemInCart() {
         var products:[Products] = [.apple]
-        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.6, "Failed: Total price of single product in cart should be \(0.6)")
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.6, accuracy:1e-16, "Failed: Total price of single product in cart should be \(0.6)")
         
         products = [.orange]
-        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.25, "Failed: Total price of single product in cart should be \(0.25)")
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.25, accuracy:1e-16, "Failed: Total price of single product in cart should be \(0.25)")
     }
     
 
     func testTotalPriceOfMutlipleItemsInCart() {
         var products:[Products] = [.apple, .orange]
-        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.85, "Failed: Total price of products in cart should be \(0.85)")
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.85, accuracy:1e-16, "Failed: Total price of products in cart should be \(0.85)")
         
         products = [.apple, .apple]
-        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 1.2, "Failed: Total price of products in cart should be \(1.2)")
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 1.2, accuracy:1e-16, "Failed: Total price of products in cart should be \(1.2)")
         
         products = [.orange, .orange]
-        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.5, "Failed: Total price of products in cart should be \(0.5)")
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.5, accuracy:1e-16, "Failed: Total price of products in cart should be \(0.5)")
         
         products = [.apple, .apple, .orange, .orange]
-        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 1.7, "Failed: Total price of products in cart should be \(1.7)")
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 1.7, accuracy:1e-16, "Failed: Total price of products in cart should be \(1.7)")
     }
 }
 
