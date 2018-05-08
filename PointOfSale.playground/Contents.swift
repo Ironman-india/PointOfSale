@@ -30,10 +30,11 @@ struct CheckoutSystem {
 
     // API
     public func totalPrice(of products:[Products]) -> Double {
+        var totalPrice: Double = 0
         for product in products {
-            return product.price()
+            totalPrice += product.price()
         }
-        return 0
+        return totalPrice
     }
 }
 
