@@ -30,11 +30,7 @@ struct CheckoutSystem {
 
     // API
     public func totalPrice(of products:[Products]) -> Double {
-        var totalPrice: Double = 0
-        for product in products {
-            totalPrice += product.price()
-        }
-        return totalPrice
+        return products.reduce(0, { $0 + $1.price() })
     }
 }
 
@@ -70,8 +66,17 @@ class CheckoutSystemTests: XCTestCase {
     
 
     func testTotalPriceOfMutlipleItemsInCart() {
-        let products:[Products] = [.apple, .orange]
+        var products:[Products] = [.apple, .orange]
         XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.85, "Failed: Total price of products in cart should be \(0.85)")
+        
+        products = [.apple, .apple]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 1.2, "Failed: Total price of products in cart should be \(1.2)")
+        
+        products = [.orange, .orange]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.5, "Failed: Total price of products in cart should be \(0.5)")
+        
+        products = [.apple, .apple, .orange, .orange]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 1.7, "Failed: Total price of products in cart should be \(1.7)")
     }
 }
 
