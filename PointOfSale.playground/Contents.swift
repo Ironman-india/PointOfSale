@@ -3,6 +3,13 @@
 import UIKit
 import XCTest
 
+//MARK: - Checkout System
+
+struct CheckoutSystem {
+   public func totalPrice(_ products:[Any]) -> Double {
+       return 0
+   }
+}
 
 //MARK: - TEST CASES
 class CheckoutSystemTests: XCTestCase {
