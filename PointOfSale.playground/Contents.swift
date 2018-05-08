@@ -11,6 +11,13 @@ import XCTest
 public enum Products: String {
     case apple = "Apple"
     case orange = "Orange"
+    
+    func price() -> Double {
+        switch self {
+            case .apple: return 60/100
+            case .orange: return 25/100 
+        }
+    }
 }
 
 //MARK :- CheckoutSystem
@@ -23,14 +30,8 @@ struct CheckoutSystem {
 
     // API
     public func totalPrice(of products:[Products]) -> Double {
-        
         for product in products {
-            switch product {
-            case .apple:
-                return 0.6
-            case .orange:
-                return 0.25
-            }
+            return product.price()
         }
         return 0
     }
