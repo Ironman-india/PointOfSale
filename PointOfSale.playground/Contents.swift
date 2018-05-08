@@ -23,6 +23,15 @@ struct CheckoutSystem {
 
     // API
     public func totalPrice(of products:[Products]) -> Double {
+        
+        for product in products {
+            switch product {
+            case .apple:
+                return 0.6
+            case .orange:
+                return 0.25
+            }
+        }
         return 0
     }
 }
