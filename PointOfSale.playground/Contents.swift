@@ -3,15 +3,32 @@
 import UIKit
 import XCTest
 
-//MARK: - Checkout System
+//MARK :- Products
+/* Enumeration Products
+ *
+ *  It catalogs the details of product for sale.
+ */
+public enum Products: String {
+    case apple = "Apple"
+    case orange = "Orange"
+}
 
+//MARK :- CheckoutSystem
+/*
+ * Structure CheckoutSystem
+ *
+ * Implements public apis to for retrieve pricing of products in cart, number of products in cart, etc.
+ */
 struct CheckoutSystem {
-   public func totalPrice(_ products:[Any]) -> Double {
-       return 0
-   }
+
+    // API
+    public func totalPrice(of products:[Products]) -> Double {
+        return 0
+    }
 }
 
 //MARK: - TEST CASES
+
 class CheckoutSystemTests: XCTestCase {
     
     override func setUp() {
@@ -27,8 +44,8 @@ class CheckoutSystemTests: XCTestCase {
     }
     
     func testTotalPriceOfEmptyCart() {
-        let products: [Any] = [] //TODO: Refactor
-        XCTAssertEqual(CheckoutSystem().totalPrice(products), 0, "Failed: Total price of empty cart should be zero")
+        let products: [Products] = []
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0, "Failed: Total price of empty cart should be zero")
     }
     
     /*
@@ -43,3 +60,4 @@ class CheckoutSystemTests: XCTestCase {
 }
 
 CheckoutSystemTests.defaultTestSuite.run()
+
