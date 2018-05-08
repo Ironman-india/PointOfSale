@@ -48,11 +48,16 @@ class CheckoutSystemTests: XCTestCase {
         XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0, "Failed: Total price of empty cart should be zero")
     }
     
-    /*
+    
     func testTotalPriceOfSingleItemInCart() {
+        var products:[Products] = [.apple]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.6, "Failed: Total price of single product in cart should be \(0.6)")
         
+        products = [.orange]
+        XCTAssertEqual(CheckoutSystem().totalPrice(of: products), 0.25, "Failed: Total price of single product in cart should be \(0.25)")
     }
     
+    /*
     func testTotalPriceOfMutlipleItemsInCart() {
     }
     */
